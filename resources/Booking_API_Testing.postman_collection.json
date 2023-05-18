@@ -1,0 +1,185 @@
+{
+  "info": {
+    "_postman_id": "2777ab18-a938-41dc-b2e2-e94cb75a126c",
+    "name": "Booking_API_Testing",
+    "description": "API Testing of dummy site",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "23441909"
+  },
+  "item": [
+    {
+      "name": "Smoke Test",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\" : \"{{email}}\",\r\n    \"password\" : \"{{password}}\"\r\n}"
+            },
+            "url": {
+              "raw": "{{baseURL}}/auth",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "auth"
+              ]
+            },
+            "description": "Smoke Test Scenario\n\nID: STS-001\n\nTest case: TC-001\n\nDescription:\n\nThis request is sent in order to check API responsivnes of the page and authentification of user in order to create Auth Token that we'll use in further testing for authentification.\n\nbaseURL endpoint is /auth\n\nFor this test we provided valid email and password variables saved in Booking_App_Environment.\n\nExpected response: 200 OK, Authentification Token generated\n\nActual response: 200 OK, Authentification Token generated\n\nAuthentifiication token is saved in Booking_App_Environment as accessToken variable for further testing use."
+          },
+          "response": []
+        },
+        {
+          "name": "CreateBooking",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstname\" : \"Bukayo\",\r\n    \"lastname\" : \"Saka\",\r\n    \"totalprice\" : 90,\r\n    \"depositpaid\" : true,\r\n    \"bookingdates\" : {\r\n        \"checkin\" : \"2023-03-03\",\r\n        \"checkout\" : \"2023-03-05\"\r\n    },\r\n    \"additionalneeds\" : \"Breakfast\"\r\n}"
+            },
+            "url": {
+              "raw": "{{baseURL}}/booking",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "booking"
+              ]
+            },
+            "description": "Smoke Test Scenario\n\nID: SCS-001\n\nTest case: TC-002\n\nDescription:\n\nStartFragment\n\nThis request is sent in order to create a new booking.\n\nbaseURL endpoint is /booking\n\nFor this test we provided valid info based on API documentation\n\nExpected response: 200 OK, Booking created with provided info\n\nActual response: 200 OK, Booking created with provided info"
+          },
+          "response": []
+        },
+        {
+          "name": "GetBookingByID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseURL}}/booking/:bookId",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "booking",
+                ":bookId"
+              ],
+              "variable": [
+                {
+                  "key": "bookId",
+                  "value": "1057"
+                }
+              ]
+            },
+            "description": "Smoke Test Scenario\n\nID: SCS-001\n\nTest case: TC-003\n\nDescription:\n\nThis request is sent in order to get booking info by it's ID.\n\nbaseURL endpoint is /booking/:bookId\n\nFor this test we provided valid ID of booking we already created trough Path variable \"bookId\"\n\nExpected response: 200 OK, get booking information for requested ID\n\nActual response: 200 OK, get booking information for requested ID"
+          },
+          "response": []
+        },
+        {
+          "name": "UpdateBooking",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Cookie",
+                "value": "token={{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstname\": \"Bukayo\",\r\n    \"lastname\": \"Saka\",\r\n    \"totalprice\": 110,\r\n    \"depositpaid\": true,\r\n    \"bookingdates\": {\r\n        \"checkin\": \"2023-03-03\",\r\n        \"checkout\": \"2023-03-05\"\r\n    },\r\n    \"additionalneeds\": \"Breakfast, Dinner\"\r\n}\r\n"
+            },
+            "url": {
+              "raw": "{{baseURL}}/booking/:id",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "booking",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "3947"
+                }
+              ]
+            },
+            "description": "Smoke Test Scenario\n\nID: SCS-001\n\nTest case: TC-004\n\nDescription:\n\nThis request is sent in order to update requested booking ID information.\n\nbaseURL endpoint is /booking/:id\n\nFor this test we provided valid ID of booking we already created trough Path variable \"id\"\n\nExpected response: 200 OK, updated booking information for requested ID\n\nActual response: 200 OK, updated booking information for requested ID"
+          },
+          "response": []
+        },
+        {
+          "name": "DeleteBooking",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Cookie",
+                "value": "token={{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseURL}}/booking/3947",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "booking",
+                "3947"
+              ]
+            },
+            "description": "Smoke Test Scenario\n\nID: SCS-001\n\nTest case: TC-005\n\nDescription:\n\nThis request is sent in order to delete requested booking by it's ID\n\nbaseURL endpoint is /booking/bookingID\n\nFor this test we provided valid ID of booking we already created\n\nExpected response: 200 OK\n\nActual response: 200 OK"
+          },
+          "response": []
+        }
+      ],
+      "description": "StartFragment\n\nSmoke Test Scenario\n\n- Verify the availability and responsiveness of the API by sending valid username and password ensuring login is successful and auth token is created.\n- Test the creation of a new booking by sending a request with valid data and ensuring a successful booking is created.\n- Test the retrieval of a booking by sending a request with a valid booking ID and verifying that the correct booking details are returned.\n- Test update of booking by changing some of details\n- Test the deletion of a booking by sending a request with a valid booking ID and ensuring the booking is successfully deleted."
+    }
+  ]
+}
